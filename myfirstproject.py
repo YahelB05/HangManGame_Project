@@ -7,7 +7,9 @@ def check_valid_input(letter_guessed, old_letters_guessed):
     :type old_letters_guessed: list
     :rtype: bool
     """
+    
     return (not (letter_guessed in old_letters_guessed) and is_valid_input(letter_guessed) ) 
+
 
 def is_valid_input(letter_guessed):
     """
@@ -16,6 +18,7 @@ def is_valid_input(letter_guessed):
     :type letter_guessed: string
     :rtype: bool
     """
+    
     if(len(letter_guessed)>1):
         return False
     elif(len(letter_guessed)==1):
@@ -23,6 +26,7 @@ def is_valid_input(letter_guessed):
             return False
         return True
 
+    
 def try_update_letter_guessed(letter_guessed, old_letters_guessed):
     """
     returns if letter_guessed is valid and if valid adds it to old_letters_guessed
@@ -33,7 +37,6 @@ def try_update_letter_guessed(letter_guessed, old_letters_guessed):
     :rtype: bool
     """    
     
-    
     if check_valid_input(letter_guessed, old_letters_guessed):        
         old_letters_guessed.append(letter_guessed)    
         return True
@@ -43,7 +46,17 @@ def try_update_letter_guessed(letter_guessed, old_letters_guessed):
         print_all_tries(letter_guessed, old_letters_guessed)
         return False        
     
+    
 def print_all_tries(letter_guessed, old_letters_guessed):
+    """
+    Prints all of the tries of the user.
+    :param letter_guessed: user's guess.
+    :param old_letters_guessed: letters that have been guessed.
+    :type letter_guessed: str
+    :type old_letters_guessed: list
+    :returns: None
+    """
+    
     old_letters_guessed.sort()
     x = ""    
     print("X")
@@ -63,6 +76,7 @@ def show_hidden_word(secret_word, old_letters_guessed):
     :type old_letters_guessed: list
     :rtype: string
     """
+    
     x = list()
     start = 0
     mystring = ""
@@ -73,10 +87,9 @@ def show_hidden_word(secret_word, old_letters_guessed):
         for i in range(len(secret_word)):           
             if(letter == secret_word[i]):
                 x[i] = letter+" "
-                
-                      
-                           
+                                       
     return mystring.join(x)    
+
 
 def check_win(secret_word, old_letters_guessed):
     """
@@ -87,6 +100,7 @@ def check_win(secret_word, old_letters_guessed):
     :type old_letters_guessed: list
     :rtype: bool
     """
+    
     count = 0
     
     while(count<len(secret_word)):
@@ -95,8 +109,19 @@ def check_win(secret_word, old_letters_guessed):
         count+=1
     return True  
     
-def print_hangman(num_of_tries, HANGMAN_PHOTOS):        
+    
+def print_hangman(num_of_tries, HANGMAN_PHOTOS):
+    """
+    Prints the hangman.
+    :param num_of_tries: number of tries that the user used.
+    :param HANGMAN_PHOTOS: the dict that stores all of the possible hangman positions.
+    :type num_of_tries: int
+    :type HANGMAN_PHOTOS: dict
+    :returns: None
+    """
+    
     print(HANGMAN_PHOTOS["pic"+str(num_of_tries)])
+        
         
 def choose_word(file_path, index):
     """
@@ -107,6 +132,7 @@ def choose_word(file_path, index):
     :type index: int
     :rtype: string   
     """
+    
     my_file = open(file_path, 'r')
     for i in my_file:
         words_list=i.split(" ")    
@@ -128,7 +154,15 @@ def choose_word(file_path, index):
         return (len(new_words_list), words_list[index%(len(words_list))-1])  
     return words_list[index-1]
 
+
 def print_headline(num_of_tries):
+    """
+    Prints the hadline of the game.
+    :param num_of_tries: number of tries that the user used.
+    :type num_of_tries: int
+    :returns: None
+    """
+    
     print(""" 
   _    _                                         
  | |  | |                                        
@@ -140,6 +174,7 @@ def print_headline(num_of_tries):
                      |___/
         """)
     print(num_of_tries)    
+    
     
 def main():      
     picture1 = " x-------x "
@@ -204,6 +239,7 @@ def main():
     else:
         print(show_hidden_word(secret_word, old_letters_guessed))
         print("LOSE")
-    
+
+        
 if __name__ == "__main__":
     main()      
